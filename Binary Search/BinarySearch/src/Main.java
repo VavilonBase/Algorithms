@@ -27,11 +27,12 @@ public class Main {
         int endPtr = sortedNumbers.length - 1;
         int count = 0;
 
-        while (startPtr < endPtr) {
+        while (startPtr <= endPtr) {
             count++;
             int middlePtr = (startPtr + endPtr) / 2;
 
             if (sortedNumbers[middlePtr] == findElement) {
+                if (startPtr == endPtr) count--;
                 System.out.printf("Number of operations to search for an element: %d, equals: %d\n", findElement, count);
                 return middlePtr;
             } else if (sortedNumbers[middlePtr] > findElement) {
@@ -39,12 +40,6 @@ public class Main {
             } else {
                 startPtr = middlePtr + 1;
             }
-        }
-
-        // if exit from while, then startPtr == endPtr
-        if (sortedNumbers[startPtr] == findElement) {
-            System.out.printf("Number of operations to search for an element: %d, equals: %d\n", findElement, count);
-            return startPtr;
         }
         return -1;
     }
