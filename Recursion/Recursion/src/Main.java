@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         Box mainBox = new Box("Main");
@@ -20,9 +23,10 @@ public class Main {
         }
 
         int n = 10;
-        System.out.printf("Factorial of %d equals %d", n, Main.factorial(n));
+        System.out.printf("Factorial of %d equals %d\n", n, Main.factorial(n));
 
-        
+        List<Integer> numbersList = new ArrayList<Integer>(List.of(1, 5 ,3, 7, 8));
+        System.out.printf("Sum numbers list equals %d", Main.recursionSum(numbersList));
     }
 
     public static boolean recursionFindKeyInBox(Box box) {
@@ -48,6 +52,16 @@ public class Main {
         if (n == 1) return 1;
 
         return n * Main.factorial(n - 1);
+    }
 
+    public static Integer recursionSum(List<Integer> arr) {
+        if (arr == null || arr.size() == 0) return null;
+
+        if (arr.size() == 1) return arr.get(0);
+
+        Integer number = arr.get(0);
+        arr.remove(0);
+
+        return number + Main.recursionSum(arr);
     }
 }
