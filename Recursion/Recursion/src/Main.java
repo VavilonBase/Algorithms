@@ -25,10 +25,12 @@ public class Main {
         int n = 10;
         System.out.printf("Factorial of %d equals %d\n", n, Main.factorial(n));
 
-        List<Integer> numbersList = new ArrayList<Integer>(List.of(1, 5 ,3, 7, 8));
+        List<Integer> numbersList = new ArrayList<Integer>(List.of(1, 5 , 3, 7, 8));
         System.out.printf("Sum numbers list equals %d\n", Main.recursionSum(numbersList));
 
-        System.out.printf("Count of list elements equals %d", Main.recursionCountListElements(numbersList));
+        System.out.printf("Count of list elements equals %d\n", Main.recursionCountListElements(numbersList));
+
+        System.out.printf("Max number of list equals %d", Main.recursionFindMax(numbersList));
     }
 
     public static boolean recursionFindKeyInBox(Box box) {
@@ -84,5 +86,19 @@ public class Main {
         arr.add(0, number);
 
         return count;
+    }
+
+    public static Integer recursionFindMax(List<Integer> arr) {
+        if (arr == null || arr.size() == 0) return null;
+
+        if (arr.size() == 1) return arr.get(0);
+
+        Integer maxNumber = arr.get(0);
+        arr.remove(0);
+        Integer nextMaxNumber = recursionFindMax(arr);
+
+        arr.add(0, maxNumber);
+
+        return maxNumber > nextMaxNumber ? maxNumber : nextMaxNumber;
     }
 }
