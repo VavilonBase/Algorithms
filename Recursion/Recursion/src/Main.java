@@ -26,7 +26,9 @@ public class Main {
         System.out.printf("Factorial of %d equals %d\n", n, Main.factorial(n));
 
         List<Integer> numbersList = new ArrayList<Integer>(List.of(1, 5 ,3, 7, 8));
-        System.out.printf("Sum numbers list equals %d", Main.recursionSum(numbersList));
+        System.out.printf("Sum numbers list equals %d\n", Main.recursionSum(numbersList));
+
+        System.out.printf("Count of list elements equals %d", Main.recursionCountListElements(numbersList));
     }
 
     public static boolean recursionFindKeyInBox(Box box) {
@@ -62,6 +64,25 @@ public class Main {
         Integer number = arr.get(0);
         arr.remove(0);
 
-        return number + Main.recursionSum(arr);
+        Integer returnNumber = number + Main.recursionSum(arr);
+
+        arr.add(0, number);
+
+        return returnNumber;
+    }
+
+    public static int recursionCountListElements(List<Integer> arr) {
+        if (arr == null || arr.size() == 0) return 0;
+
+        if (arr.size() == 1) return 1;
+
+        Integer number = arr.get(0);
+        arr.remove(0);
+
+        int count = 1 + Main.recursionCountListElements(arr);
+
+        arr.add(0, number);
+
+        return count;
     }
 }
