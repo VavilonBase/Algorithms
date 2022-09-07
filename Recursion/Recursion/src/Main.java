@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
+    private static Random random = new Random();
+
     public static void main(String[] args) {
         Box mainBox = new Box("Main");
         Box box1 = new Box("Main->box1");
@@ -30,7 +33,14 @@ public class Main {
 
         System.out.printf("Count of list elements equals %d\n", Main.recursionCountListElements(numbersList));
 
-        System.out.printf("Max number of list equals %d", Main.recursionFindMax(numbersList));
+        System.out.printf("Max number of list equals %d\n", Main.recursionFindMax(numbersList));
+
+        List<Integer> sortedList = Main.qSort(numbersList);
+        System.out.print("Sorted list elements by quick sort: ");
+
+        for (Integer number : sortedList) {
+            System.out.printf("%d\t", number);
+        }
     }
 
     public static boolean recursionFindKeyInBox(Box box) {
@@ -100,5 +110,33 @@ public class Main {
         arr.add(0, maxNumber);
 
         return maxNumber > nextMaxNumber ? maxNumber : nextMaxNumber;
+    }
+
+    public static List<Integer> qSort(List<Integer> arr) {
+
+        if (arr == null) return null;
+
+        if (arr.size() == 0 || arr.size() == 1) return arr;
+
+        int pivotIndex = Main.random.nextInt(arr.size());
+
+        List<Integer> less = new ArrayList<>();
+        List<Integer> greater = new ArrayList<>();
+
+        for (int i = 0; i < arr.size(); i++) {
+            if (i == pivotIndex) continue;
+
+            if (arr.get(i) < arr.get(pivotIndex)) {
+                less.add(arr.get(i));
+            } else {
+                greater.add(arr.get(i));
+            }
+        }
+
+        List<Integer> sortedList = new ArrayList<>(Main.qSort(less));
+        sortedList.add(arr.get(pivotIndex));
+        sortedList.addAll(Main.qSort(greater));
+
+        return sortedList;
     }
 }
