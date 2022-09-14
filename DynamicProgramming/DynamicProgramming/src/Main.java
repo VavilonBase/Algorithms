@@ -82,6 +82,12 @@ public class Main {
         Main.findMaxLengthSubstringInString("hish", "fish");
         Main.findMaxLengthSubstringInString("hish", "vista");
         Main.findMaxLengthSubstringInString("hish", "hash");
+
+        Main.findMaxLengthSubsequenceInString("hish", "fish");
+        Main.findMaxLengthSubsequenceInString("hish", "vista");
+        Main.findMaxLengthSubsequenceInString("hish", "hash");
+        Main.findMaxLengthSubsequenceInString("fosh", "fish");
+        Main.findMaxLengthSubsequenceInString("fort", "fosh");
     }
 
     public static void travelToAttractions() {
@@ -206,6 +212,57 @@ public class Main {
         }
 
         System.out.printf("Max length substring in string equal: %d\n", max);
+    }
+
+    public static void findMaxLengthSubsequenceInString(String byFounded, String inFounded) {
+        char[] byFoundedChars = byFounded.toCharArray();
+        char[] inFoundedChars = inFounded.toCharArray();
+
+        int[][] table = new int[byFoundedChars.length][inFoundedChars.length];
+        int max = 0;
+
+        for (int i = 0; i < byFoundedChars.length; i++) {
+            for (int j = 0; j < inFoundedChars.length; j++) {
+                if (byFoundedChars[i] == inFoundedChars[j]) {
+                    table[i][j] = 1;
+                    if (i > 0 && j > 0) {
+                        table[i][j] = table[i][j] + table[i-1][j-1];
+                    }
+                } else {
+                    if (i > 0 && j > 0) {
+                        table[i][j] = Math.max(table[i - 1][j], table[i][j - 1]);
+                    } else if (j > 0) {
+                        table[i][j] = table[i][j-1];
+                    } else if (i > 0) {
+                        table[i][j] = table[i-1][j];
+                    } else {
+                        table[i][j] = 0;
+                    }
+                }
+
+                if (table[i][j] > max) {
+                    max = table[i][j];
+                }
+            }
+        }
+
+        System.out.print(" ".repeat(6));
+        for (char inFoundedChar : inFoundedChars) {
+            System.out.printf("%c     ", inFoundedChar);
+        }
+
+        System.out.println();
+
+        for (int i = 0; i < byFoundedChars.length; i++) {
+            System.out.printf("%c     ", byFoundedChars[i]);
+            for (int j = 0; j < inFoundedChars.length; j++) {
+                String count = String.format("%d     ", table[i][j]).substring(0, 6);
+                System.out.print(count);
+            }
+            System.out.println();
+        }
+
+        System.out.printf("Max length subsequence in string equal: %d\n", max);
     }
 
     public static int findIndexByTime(double[] times, double time) {
