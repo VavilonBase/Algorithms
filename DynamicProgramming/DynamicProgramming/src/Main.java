@@ -82,6 +82,7 @@ public class Main {
         Main.findMaxLengthSubstringInString("hish", "fish");
         Main.findMaxLengthSubstringInString("hish", "vista");
         Main.findMaxLengthSubstringInString("hish", "hash");
+        Main.findMaxLengthSubstringInString("blue", "clues");
 
         Main.findMaxLengthSubsequenceInString("hish", "fish");
         Main.findMaxLengthSubsequenceInString("hish", "vista");
